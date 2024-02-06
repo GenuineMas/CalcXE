@@ -13,8 +13,6 @@ struct CalcXEView: View {
     
     @State private var carbohydratesIn100:  String = ""
     @State private var countGramm: String = ""
-    
-    
     @State var result : AttributedString = ""
     @FocusState private var isFirstResponder :Bool
     
@@ -22,13 +20,6 @@ struct CalcXEView: View {
     //                          Y - product weight;
     //                          1100 == 100 grams multiplied to 11 (carbohydrates in 1 bread unite )
     //                          XE == bread unite
-    
-    let formatter: NumberFormatter = {
-           let formatter = NumberFormatter()
-           formatter.numberStyle = .decimal
-           formatter.maximumFractionDigits = 2
-           return formatter
-       }()
     
     var body: some View {
         
@@ -46,8 +37,7 @@ struct CalcXEView: View {
             Text($result.wrappedValue)
                 .font(.system(size: 50))
                 .fontWeight(.heavy)
-               // .frame(width: 300, height: 300 , alignment: .top)
-            
+        
             TextField(
                 "carbohydrates In 100 grammms",
                 text: $carbohydratesIn100
