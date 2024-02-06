@@ -7,13 +7,14 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 @main
 struct CalcXEApp: App {
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CalcXEView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

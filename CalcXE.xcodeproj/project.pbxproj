@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0D704626DFC3DA008A5FDF /* CareKitStore in Frameworks */ = {isa = PBXBuildFile; productRef = 8C0D704526DFC3DA008A5FDF /* CareKitStore */; };
+		8C0D704826DFC3DA008A5FDF /* CareKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8C0D704726DFC3DA008A5FDF /* CareKit */; };
+		8C0D704A26DFC3DA008A5FDF /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8C0D704926DFC3DA008A5FDF /* CareKitUI */; };
 		8C587F3026DE9B3E00C5904A /* CalcXEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C587F2F26DE9B3E00C5904A /* CalcXEApp.swift */; };
 		8C587F3226DE9B3E00C5904A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C587F3126DE9B3E00C5904A /* ContentView.swift */; };
 		8C587F3426DE9B3F00C5904A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C587F3326DE9B3F00C5904A /* Assets.xcassets */; };
@@ -31,6 +34,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C0D704826DFC3DA008A5FDF /* CareKit in Frameworks */,
+				8C0D704626DFC3DA008A5FDF /* CareKitStore in Frameworks */,
+				8C0D704A26DFC3DA008A5FDF /* CareKitUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +97,11 @@
 			dependencies = (
 			);
 			name = CalcXE;
+			packageProductDependencies = (
+				8C0D704526DFC3DA008A5FDF /* CareKitStore */,
+				8C0D704726DFC3DA008A5FDF /* CareKit */,
+				8C0D704926DFC3DA008A5FDF /* CareKitUI */,
+			);
 			productName = CalcXE;
 			productReference = 8C587F2C26DE9B3E00C5904A /* CalcXE.app */;
 			productType = "com.apple.product-type.application";
@@ -118,6 +129,9 @@
 				Base,
 			);
 			mainGroup = 8C587F2326DE9B3D00C5904A;
+			packageReferences = (
+				8C0D704426DFC3DA008A5FDF /* XCRemoteSwiftPackageReference "CareKit" */,
+			);
 			productRefGroup = 8C587F2D26DE9B3E00C5904A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -205,7 +219,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -260,7 +274,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -336,6 +350,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8C0D704426DFC3DA008A5FDF /* XCRemoteSwiftPackageReference "CareKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/carekit-apple/CareKit";
+			requirement = {
+				branch = stable;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8C0D704526DFC3DA008A5FDF /* CareKitStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C0D704426DFC3DA008A5FDF /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKitStore;
+		};
+		8C0D704726DFC3DA008A5FDF /* CareKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C0D704426DFC3DA008A5FDF /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKit;
+		};
+		8C0D704926DFC3DA008A5FDF /* CareKitUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C0D704426DFC3DA008A5FDF /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKitUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8C587F3A26DE9B3F00C5904A /* CalcXE.xcdatamodeld */ = {
