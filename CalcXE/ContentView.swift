@@ -22,16 +22,28 @@ struct CalcXEView: View {
     //                          Y - product weight;
     //                          1100 == 100 grams multiplied to 11 (carbohydrates in 1 bread unite )
     //                          XE == bread unite
+    
+    let formatter: NumberFormatter = {
+           let formatter = NumberFormatter()
+           formatter.numberStyle = .decimal
+           formatter.maximumFractionDigits = 2
+           return formatter
+       }()
+    
     var body: some View {
         
         func calc(_ V: Double, _ Y: Double) -> String {
             let XE = (V * Y)/1100
-            return String(XE)
+            return String(XE.formatted(.number.rounded(increment: 0.1)))
         }
         
         
+        //TODO
+        //picker XE/carbs
+        
         return VStack {
-             Text($result.wrappedValue)
+
+            Text($result.wrappedValue)
                 .font(.system(size: 50))
                 .fontWeight(.heavy)
                // .frame(width: 300, height: 300 , alignment: .top)
@@ -61,7 +73,7 @@ struct CalcXEView: View {
                 Button("Done") {
                     result =  AttributedString(calc(Double(carbohydratesIn100) ?? 0 ,
                                                     Double(countGramm) ?? 0 ))
-                    isFirstResponder = false // hide keyboard
+                    isFirstResponder = false                                                    // hide keyboard
                 }
             }
         }
