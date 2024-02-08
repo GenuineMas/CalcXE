@@ -11,11 +11,19 @@ import SwiftUI
 @main
 struct CalcXEApp: App {
     let persistenceController = PersistenceController.shared
-
+    
     var body: some Scene {
         WindowGroup {
-            CalcXEView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TabView {
+                BarCodeView()
+                    .tabItem {
+                        Label("BarCode", systemImage: "barcode.viewfinder")
+                    }
+                CalcXEView()
+                    .tabItem {
+                        Label("XE", systemImage: "fork.knife")
+                    }
+            }
         }
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		8C587F3726DE9B3F00C5904A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C587F3626DE9B3F00C5904A /* Preview Assets.xcassets */; };
 		8C587F3926DE9B3F00C5904A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C587F3826DE9B3F00C5904A /* Persistence.swift */; };
 		8C587F3C26DE9B3F00C5904A /* CalcXE.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C587F3A26DE9B3F00C5904A /* CalcXE.xcdatamodeld */; };
+		8CEF01252B756DD600F6C27D /* BarCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEF01242B756DD600F6C27D /* BarCodeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		8C587F3826DE9B3F00C5904A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		8C587F3B26DE9B3F00C5904A /* CalcXE.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalcXE.xcdatamodel; sourceTree = "<group>"; };
 		8C587F3D26DE9B3F00C5904A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CEF01242B756DD600F6C27D /* BarCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				8C587F2F26DE9B3E00C5904A /* CalcXEApp.swift */,
+				8CEF01242B756DD600F6C27D /* BarCodeView.swift */,
 				8C587F3126DE9B3E00C5904A /* ContentView.swift */,
 				8C587F3326DE9B3F00C5904A /* Assets.xcassets */,
 				8C587F3826DE9B3F00C5904A /* Persistence.swift */,
@@ -160,6 +163,7 @@
 			files = (
 				8C587F3926DE9B3F00C5904A /* Persistence.swift in Sources */,
 				8C587F3226DE9B3E00C5904A /* ContentView.swift in Sources */,
+				8CEF01252B756DD600F6C27D /* BarCodeView.swift in Sources */,
 				8C587F3026DE9B3E00C5904A /* CalcXEApp.swift in Sources */,
 				8C587F3C26DE9B3F00C5904A /* CalcXE.xcdatamodeld in Sources */,
 			);

@@ -16,7 +16,8 @@ struct CalcXEView: View {
     @State var result : AttributedString = ""
     @FocusState private var isFirstResponder :Bool
     
-        // main formula : where V - carbohydrates in 100 grammms ;
+    
+    // main formula : where     V - carbohydrates in 100 grammms ;
     //                          Y - product weight;
     //                          1100 == 100 grams multiplied to 11 (carbohydrates in 1 bread unite )
     //                          XE == bread unite
