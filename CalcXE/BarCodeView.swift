@@ -19,6 +19,13 @@ struct WebView: UIViewRepresentable {
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             self.webView = webView
+            webView.evaluateJavaScript("""
+                                       document.write('<div class="radio"><label for="search_by_gtin_searchType_1" class="required"><input type="radio" id="search_by_gtin_searchType_1" name="search_by_gtin[searchType]" required="required" value="2" checked="checked" /> Інформація про товар</label></div>').innerText
+""") { (result, error) in
+                if error == nil {
+                    print(result)
+                } else {print ("FUCK")}
+            }
         }
         
         // receive message from wkwebview
@@ -79,10 +86,10 @@ struct BarCodeView: View {
                 NavigationStack {
                     // 3
                     WebView(url: URL(string: "https://gepir.gs1ua.org/search/gtin")!)
-                    
                         .ignoresSafeArea()
                         .navigationTitle("GS1")
                         .navigationBarTitleDisplayMode(.inline)
+                    //    .hidden()
                         
                 }
             } else {
