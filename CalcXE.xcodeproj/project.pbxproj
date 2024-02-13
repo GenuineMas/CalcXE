@@ -16,6 +16,7 @@
 		8C587F3726DE9B3F00C5904A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C587F3626DE9B3F00C5904A /* Preview Assets.xcassets */; };
 		8C587F3926DE9B3F00C5904A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C587F3826DE9B3F00C5904A /* Persistence.swift */; };
 		8C587F3C26DE9B3F00C5904A /* CalcXE.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C587F3A26DE9B3F00C5904A /* CalcXE.xcdatamodeld */; };
+		8C79D11C2B7952FD0052D633 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 8C79D11B2B7952FD0052D633 /* SwiftSoup */; };
 		8CEF01252B756DD600F6C27D /* BarCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEF01242B756DD600F6C27D /* BarCodeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C0D704826DFC3DA008A5FDF /* CareKit in Frameworks */,
+				8C79D11C2B7952FD0052D633 /* SwiftSoup in Frameworks */,
 				8C0D704626DFC3DA008A5FDF /* CareKitStore in Frameworks */,
 				8C0D704A26DFC3DA008A5FDF /* CareKitUI in Frameworks */,
 			);
@@ -104,6 +106,7 @@
 				8C0D704526DFC3DA008A5FDF /* CareKitStore */,
 				8C0D704726DFC3DA008A5FDF /* CareKit */,
 				8C0D704926DFC3DA008A5FDF /* CareKitUI */,
+				8C79D11B2B7952FD0052D633 /* SwiftSoup */,
 			);
 			productName = CalcXE;
 			productReference = 8C587F2C26DE9B3E00C5904A /* CalcXE.app */;
@@ -134,6 +137,7 @@
 			mainGroup = 8C587F2326DE9B3D00C5904A;
 			packageReferences = (
 				8C0D704426DFC3DA008A5FDF /* XCRemoteSwiftPackageReference "CareKit" */,
+				8C79D11A2B7952FD0052D633 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = 8C587F2D26DE9B3E00C5904A /* Products */;
 			projectDirPath = "";
@@ -364,6 +368,14 @@
 				kind = branch;
 			};
 		};
+		8C79D11A2B7952FD0052D633 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -381,6 +393,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8C0D704426DFC3DA008A5FDF /* XCRemoteSwiftPackageReference "CareKit" */;
 			productName = CareKitUI;
+		};
+		8C79D11B2B7952FD0052D633 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C79D11A2B7952FD0052D633 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
 		};
 /* End XCSwiftPackageProductDependency section */
 

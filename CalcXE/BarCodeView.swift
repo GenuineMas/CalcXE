@@ -9,25 +9,19 @@
 
 import SwiftUI
 import WebKit
+import SwiftSoup
+import Foundation
+
 
 struct WebView: UIViewRepresentable {
     
     let url: URL
+
+    
     
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
         var webView: WKWebView?
-        
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            self.webView = webView
-            webView.evaluateJavaScript("""
-                                       document.write('<div class="radio"><label for="search_by_gtin_searchType_1" class="required"><input type="radio" id="search_by_gtin_searchType_1" name="search_by_gtin[searchType]" required="required" value="2" checked="checked" /> Інформація про товар</label></div>').innerText
-""") { (result, error) in
-                if error == nil {
-                    print(result)
-                } else {print ("FUCK")}
-            }
-        }
-        
+
         // receive message from wkwebview
         func userContentController(
             _ userContentController: WKUserContentController,
@@ -36,12 +30,12 @@ struct WebView: UIViewRepresentable {
             print(message.body)
             let date = Date()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.messageToWebview(msg: "hello, I got your messsage: \(message.body) at \(date)")
+               // self.messageToWebview(msg: "hello, I got your messsage: \(message.body) at \(date)")
             }
         }
-        
-        func messageToWebview(msg: String) {
-            self.webView?.evaluateJavaScript("webkit.messageHandlers.bridge.onMessage('\(msg)')")
+  //  msg: String
+        func messageToWebview() {
+         //   self.webView?.evaluateJavaScript("webkit.messageHandlers.bridge.onMessage('\(msg)')")
         }
     }
     
@@ -60,20 +54,58 @@ struct WebView: UIViewRepresentable {
         let _wkwebview = WKWebView(frame: .zero, configuration: configuration)
         _wkwebview.navigationDelegate = coordinator
         
+
         return _wkwebview
     }
     
-    func updateUIView(_ webView: WKWebView, context: Context) {
-
+     func updateUIView(_ webView: WKWebView, context: Context){
         let request = URLRequest(url: url)
-        webView.load(request)
-    }
+         webView.load(request)
+
+         //TODO calculate delay time exactly !
+
+         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+             webView.evaluateJavaScript("document.getElementsByTagName('html')[0].innerHTML")
+             { (result, error) in
+                 if error == nil {
+                     print("RESULT\(result)")
+                 } else {print ("FUCK")}
+             }
+             
+             webView.evaluateJavaScript("document.getElementById('search_by_gtin_searchType_0').removeAttribute('checked')")
+             { (result, error) in
+                 if error == nil {
+                     print("RESULT1\(result)")
+                 } else {print ("FUCK")}
+             }
+             
+             webView.evaluateJavaScript("document.getElementById('search_by_gtin_searchType_1').setAttribute('checked','checked')")
+             { (result, error) in
+                 if error == nil {
+                     print("RESULT2\(result)")
+                 } else {print ("FUCK")}
+             }
+             
+             webView.evaluateJavaScript("document.getElementById('search_by_gtin_interpretationResult').setAttribute('value','4820247142754')")
+             { (result, error) in
+                 if error == nil {
+                     print("RESULT3\(result)")
+                 } else {print ("FUCK")}
+             }
+             
+             webView.evaluateJavaScript("document.getElementById('search-by-number-form').submit();")
+             { (result, error) in
+                 if error == nil {
+                     print("RESULT4\(result)")
+                 } else {print ("FUCK")}
+             }
+         }
+        }
 }
 
 struct BarCodeView: View {
-    // 1
-    @State private var isPresentWebView = false
 
+    @State private var isPresentWebView = false
     
     var body: some View {
         Button("Open WebView") {
@@ -89,8 +121,6 @@ struct BarCodeView: View {
                         .ignoresSafeArea()
                         .navigationTitle("GS1")
                         .navigationBarTitleDisplayMode(.inline)
-                    //    .hidden()
-                        
                 }
             } else {
                 // Fallback on earlier versions
@@ -98,8 +128,6 @@ struct BarCodeView: View {
         }
     }
 }
-
-
 
 #Preview {
     BarCodeView()

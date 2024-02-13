@@ -8,6 +8,15 @@
         "branch" : "stable",
         "revision" : "9d4233253faf39e5dcd52e6cb4a0498ac4ca4a1f"
       }
+    },
+    {
+      "identity" : "swiftsoup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scinfu/SwiftSoup.git",
+      "state" : {
+        "revision" : "f83c097597094a04124eb6e0d1e894d24129af87",
+        "version" : "2.7.0"
+      }
     }
   ],
   "version" : 2
