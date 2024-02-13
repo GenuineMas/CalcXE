@@ -16,12 +16,12 @@ import Foundation
 struct WebView: UIViewRepresentable {
     
     let url: URL
-
+    
     
     
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
         var webView: WKWebView?
-
+        
         // receive message from wkwebview
         func userContentController(
             _ userContentController: WKUserContentController,
@@ -30,12 +30,12 @@ struct WebView: UIViewRepresentable {
             print(message.body)
             let date = Date()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-               // self.messageToWebview(msg: "hello, I got your messsage: \(message.body) at \(date)")
+                // self.messageToWebview(msg: "hello, I got your messsage: \(message.body) at \(date)")
             }
         }
-  //  msg: String
+        //  msg: String
         func messageToWebview() {
-         //   self.webView?.evaluateJavaScript("webkit.messageHandlers.bridge.onMessage('\(msg)')")
+            //   self.webView?.evaluateJavaScript("webkit.messageHandlers.bridge.onMessage('\(msg)')")
         }
     }
     
@@ -54,64 +54,64 @@ struct WebView: UIViewRepresentable {
         let _wkwebview = WKWebView(frame: .zero, configuration: configuration)
         _wkwebview.navigationDelegate = coordinator
         
-
+        
         return _wkwebview
     }
     
-     func updateUIView(_ webView: WKWebView, context: Context){
+    func updateUIView(_ webView: WKWebView, context: Context){
         let request = URLRequest(url: url)
-         webView.load(request)
-
-         //TODO calculate delay time exactly !
-
-         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-             webView.evaluateJavaScript("document.getElementsByTagName('html')[0].innerHTML")
-             { (result, error) in
-                 if error == nil {
-                     print("RESULT\(result)")
-                 } else {print ("FUCK")}
-             }
-             
-             webView.evaluateJavaScript("document.getElementById('search_by_gtin_searchType_0').removeAttribute('checked')")
-             { (result, error) in
-                 if error == nil {
-                     print("RESULT1\(result)")
-                 } else {print ("FUCK")}
-             }
-             
-             webView.evaluateJavaScript("document.getElementById('search_by_gtin_searchType_1').setAttribute('checked','checked')")
-             { (result, error) in
-                 if error == nil {
-                     print("RESULT2\(result)")
-                 } else {print ("FUCK")}
-             }
-             
-             webView.evaluateJavaScript("document.getElementById('search_by_gtin_interpretationResult').setAttribute('value','4820247142754')")
-             { (result, error) in
-                 if error == nil {
-                     print("RESULT3\(result)")
-                 } else {print ("FUCK")}
-             }
-             
-             webView.evaluateJavaScript("document.getElementById('search-by-number-form').submit();")
-             { (result, error) in
-                 if error == nil {
-                     print("RESULT4\(result)")
-                 } else {print ("FUCK")}
-             }
-         }
+        webView.load(request)
+        
+        //TODO calculate delay time exactly !
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            webView.evaluateJavaScript("document.getElementsByTagName('html')[0].innerHTML")
+            { (result, error) in
+                if error == nil {
+                    print("RESULT\(result)")
+                } else {print ("FUCK")}
+            }
+            
+            webView.evaluateJavaScript("document.getElementById('search_by_gtin_searchType_0').removeAttribute('checked')")
+            { (result, error) in
+                if error == nil {
+                    print("RESULT1\(result)")
+                } else {print ("FUCK")}
+            }
+            
+            webView.evaluateJavaScript("document.getElementById('search_by_gtin_searchType_1').setAttribute('checked','checked')")
+            { (result, error) in
+                if error == nil {
+                    print("RESULT2\(result)")
+                } else {print ("FUCK")}
+            }
+            
+            webView.evaluateJavaScript("document.getElementById('search_by_gtin_interpretationResult').setAttribute('value','4820247142754')")
+            { (result, error) in
+                if error == nil {
+                    print("RESULT3\(result)")
+                } else {print ("FUCK")}
+            }
+            
+            webView.evaluateJavaScript("document.getElementById('search-by-number-form').submit();")
+            { (result, error) in
+                if error == nil {
+                    print("RESULT4\(result)")
+                } else {print ("FUCK")}
+            }
         }
+    }
 }
 
 struct BarCodeView: View {
-
+    
     @State private var isPresentWebView = false
     
     var body: some View {
         Button("Open WebView") {
             // 2
             isPresentWebView = true
-
+            
         }
         .sheet(isPresented: $isPresentWebView) {
             if #available(iOS 16.0, *) {
