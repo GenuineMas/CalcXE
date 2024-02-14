@@ -3,134 +3,137 @@
 //  CalcXE
 //
 //  Created by Genuine on 08.02.2024.
-//
-
-
+// take from Companion App (Bar Code examples )
 
 import SwiftUI
-import WebKit
-import SwiftSoup
-import Foundation
+import VisionKit
 
+@available(iOS 16.0, *)
+struct BarCodeView: View {
+    
+//VNBarcodeSymbologyEAN13
+    
+    @State var item : String = ""
+    @State var recognizedItems: [RecognizedItem] = []
+   
+  //  var item : RecognizedItem.Barcode = .payloadStringValue
 
-struct WebView: UIViewRepresentable {
+    var body: some View {
+        DataScannerViewRepresentable(
+            shouldCapturePhoto: .constant(false),
+            capturedPhoto: .constant(nil),
+            recognizedItems: $recognizedItems,
+            scanResult: $item,
+            recognizedDataType: .barcode(),
+            recognizesMultipleItems: false)
+            
+    }
+}
+//```
+//```swift
+
+@available(iOS 16.0, *)
+struct DataScannerViewRepresentable: UIViewControllerRepresentable {
     
-    let url: URL
+    @Binding var shouldCapturePhoto: Bool
+    @Binding var capturedPhoto: IdentifiableImage?
+    @Binding var recognizedItems: [RecognizedItem]
+    @Binding var scanResult: String
+   
+    let recognizedDataType: DataScannerViewController.RecognizedDataType
+    let recognizesMultipleItems: Bool
     
+    func makeUIViewController(context: Context) -> DataScannerViewController {
+        let vc = DataScannerViewController(
+            recognizedDataTypes: [recognizedDataType],
+            qualityLevel: .balanced,
+            recognizesMultipleItems: recognizesMultipleItems,
+            isGuidanceEnabled: true,
+            isHighlightingEnabled: true
+        )
+        return vc
+    }
     
-    
-    class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
-        var webView: WKWebView?
-        
-        // receive message from wkwebview
-        func userContentController(
-            _ userContentController: WKUserContentController,
-            didReceive message: WKScriptMessage
-        ) {
-            print(message.body)
-            let date = Date()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                // self.messageToWebview(msg: "hello, I got your messsage: \(message.body) at \(date)")
-            }
+    func updateUIViewController(_ uiViewController: DataScannerViewController, context: Context) {
+        uiViewController.delegate = context.coordinator
+        try? uiViewController.startScanning()
+        if shouldCapturePhoto {
+            capturePhoto(dataScannerVC: uiViewController)
         }
-        //  msg: String
-        func messageToWebview() {
-            //   self.webView?.evaluateJavaScript("webkit.messageHandlers.bridge.onMessage('\(msg)')")
+    }
+    
+    private func capturePhoto(dataScannerVC: DataScannerViewController) {
+        Task { @MainActor in
+            do {
+                let photo = try await dataScannerVC.capturePhoto()
+                self.capturedPhoto = .init(image: photo)
+            } catch {
+                print(error.localizedDescription)
+            }
+            self.shouldCapturePhoto = false
         }
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator()
+        Coordinator(recognizedItems: $recognizedItems, scanResult: $scanResult)
     }
     
-    func makeUIView(context: Context) -> WKWebView {
-        let coordinator = makeCoordinator()
-        let userContentController = WKUserContentController()
-        userContentController.add(coordinator, name: "bridge")
-        
-        let configuration = WKWebViewConfiguration()
-        configuration.userContentController = userContentController
-        
-        let _wkwebview = WKWebView(frame: .zero, configuration: configuration)
-        _wkwebview.navigationDelegate = coordinator
-        
-        
-        return _wkwebview
-    }
-    
-    func updateUIView(_ webView: WKWebView, context: Context){
-        let request = URLRequest(url: url)
-        webView.load(request)
-        
-        //TODO calculate delay time exactly !
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            webView.evaluateJavaScript("document.getElementsByTagName('html')[0].innerHTML")
-            { (result, error) in
-                if error == nil {
-                    print("RESULT\(result)")
-                } else {print ("FUCK")}
-            }
-            
-            webView.evaluateJavaScript("document.getElementById('search_by_gtin_searchType_0').removeAttribute('checked')")
-            { (result, error) in
-                if error == nil {
-                    print("RESULT1\(result)")
-                } else {print ("FUCK")}
-            }
-            
-            webView.evaluateJavaScript("document.getElementById('search_by_gtin_searchType_1').setAttribute('checked','checked')")
-            { (result, error) in
-                if error == nil {
-                    print("RESULT2\(result)")
-                } else {print ("FUCK")}
-            }
-            
-            webView.evaluateJavaScript("document.getElementById('search_by_gtin_interpretationResult').setAttribute('value','4820247142754')")
-            { (result, error) in
-                if error == nil {
-                    print("RESULT3\(result)")
-                } else {print ("FUCK")}
-            }
-            
-            webView.evaluateJavaScript("document.getElementById('search-by-number-form').submit();")
-            { (result, error) in
-                if error == nil {
-                    print("RESULT4\(result)")
-                } else {print ("FUCK")}
-            }
-        }
+    static func dismantleUIViewController(_ uiViewController: DataScannerViewController, coordinator: Coordinator) {
+        uiViewController.stopScanning()
     }
 }
-
-struct BarCodeView: View {
+//```
+//```swift
+@available(iOS 16.0, *)
+class Coordinator: NSObject, DataScannerViewControllerDelegate,ObservableObject {
     
-    @State private var isPresentWebView = false
+    @Binding var recognizedItems: [RecognizedItem]
+    @Binding var scanResult: String
     
-    var body: some View {
-        Button("Open WebView") {
-            // 2
-            isPresentWebView = true
+    init(recognizedItems: Binding<[RecognizedItem]>,scanResult: Binding<String>) {
+        self._recognizedItems = recognizedItems
+        self._scanResult = scanResult
+    }
+    
+    func dataScanner(_ dataScanner: DataScannerViewController, didTapOn item: RecognizedItem) {
+        print("didTapOn \(item)")
+        switch item {
+        case .barcode(let code) :
+            scanResult = code.payloadStringValue!   
+            print("CODE \(scanResult)")
             
-        }
-        .sheet(isPresented: $isPresentWebView) {
-            if #available(iOS 16.0, *) {
-                NavigationStack {
-                    // 3
-                    WebView(url: URL(string: "https://gepir.gs1ua.org/search/gtin")!)
-                        .ignoresSafeArea()
-                        .navigationTitle("GS1")
-                        .navigationBarTitleDisplayMode(.inline)
-                }
-            } else {
-                // Fallback on earlier versions
-            }
+        case .text(let text):
+            print(text)
+        @unknown default:
+            print("default")
         }
     }
+    
+    func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) {
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        recognizedItems.append(contentsOf: addedItems)
+        print("didAddItems \(addedItems)")
+
+      
+        
+    }
+    
+    func dataScanner(_ dataScanner: DataScannerViewController, didRemove removedItems: [RecognizedItem], allItems: [RecognizedItem]) {
+        self.recognizedItems = recognizedItems.filter { item in
+            !removedItems.contains(where: {$0.id == item.id })
+            
+        }
+        print("didRemovedItems \(removedItems)")
+    }
+    
+    func dataScanner(_ dataScanner: DataScannerViewController, becameUnavailableWithError error: DataScannerViewController.ScanningUnavailable) {
+        print("became unavailable with error \(error.localizedDescription)")
+    }
 }
-
-#Preview {
-    BarCodeView()
+//```
+//```swift
+struct IdentifiableImage: Identifiable {
+    let id = UUID()
+    let image: UIImage
 }
-
-
+//```

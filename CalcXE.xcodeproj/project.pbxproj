@@ -17,6 +17,7 @@
 		8C587F3926DE9B3F00C5904A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C587F3826DE9B3F00C5904A /* Persistence.swift */; };
 		8C587F3C26DE9B3F00C5904A /* CalcXE.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C587F3A26DE9B3F00C5904A /* CalcXE.xcdatamodeld */; };
 		8C79D11C2B7952FD0052D633 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 8C79D11B2B7952FD0052D633 /* SwiftSoup */; };
+		8C7F56DB2B7BF91B009D170F /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F56DA2B7BF91B009D170F /* WebView.swift */; };
 		8CEF01252B756DD600F6C27D /* BarCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEF01242B756DD600F6C27D /* BarCodeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		8C587F3826DE9B3F00C5904A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		8C587F3B26DE9B3F00C5904A /* CalcXE.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalcXE.xcdatamodel; sourceTree = "<group>"; };
 		8C587F3D26DE9B3F00C5904A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C7F56DA2B7BF91B009D170F /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		8CEF01242B756DD600F6C27D /* BarCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +70,7 @@
 			children = (
 				8C587F2F26DE9B3E00C5904A /* CalcXEApp.swift */,
 				8CEF01242B756DD600F6C27D /* BarCodeView.swift */,
+				8C7F56DA2B7BF91B009D170F /* WebView.swift */,
 				8C587F3126DE9B3E00C5904A /* ContentView.swift */,
 				8C587F3326DE9B3F00C5904A /* Assets.xcassets */,
 				8C587F3826DE9B3F00C5904A /* Persistence.swift */,
@@ -168,6 +171,7 @@
 				8C587F3926DE9B3F00C5904A /* Persistence.swift in Sources */,
 				8C587F3226DE9B3E00C5904A /* ContentView.swift in Sources */,
 				8CEF01252B756DD600F6C27D /* BarCodeView.swift in Sources */,
+				8C7F56DB2B7BF91B009D170F /* WebView.swift in Sources */,
 				8C587F3026DE9B3E00C5904A /* CalcXEApp.swift in Sources */,
 				8C587F3C26DE9B3F00C5904A /* CalcXE.xcdatamodeld in Sources */,
 			);
@@ -227,7 +231,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -282,7 +286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
